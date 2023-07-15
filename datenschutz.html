@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="de">
+  <head>
+    <link rel="stylesheet" type="text/css" href="style.css">
+    <title>CO2 Footprint</title>
+  </head>
+  <body>
+   <!-- Header -->
+   <header>
+    <div class="container">
+         <!-- Navigation -->
+         <div class="nav">
+            <nav>
+                <ul>
+                    <a href="index.html">Home</a>
+                    <a href="about.html">About</a>
+                    <a href="kontakt.html">Kontakt</a>
+                </ul>
+            </nav>
+        </div>
+        <div class="ueberschrift">
+                <h1>CO2 Footprint</h1>
+        </div>
+        <div class="logo">
+            <img src="logo.png" alt="Logo" style="float: right; width: 150px; height: 150px;">
+        </div>
+    </div> 
+</header>
+
+<br/>
+      <!-- Content -->
+      <main>
+        <div class="inhalt">
+            <h2>Datenschutz</h2>
+            </div>
+
+            <script>
+              // HTML-Tabelle sortieren
+              
+              const table = document.getElementById("tabelle-co2");
+              const headers = table.querySelectorAll("th");
+              const tableBody = table.querySelector("tbody");
+              const rows = tableBody.querySelectorAll("tr");
+              const directions = Array.from(headers).map(function(header) {
+               return "";
+              });
+              
+              const transform = function(index, content) {
+               const type = headers[index].getAttribute("data-type");
+               switch (type) {
+                   case "number":
+                return parseFloat(content);
+                   case "string":
+                   default:
+                return content;
+               }
+              };
+              
+              const sortColumn = function(index, headers) {
+              
+               const cls = ["upArrow", "dnArrow"];
+               headers.forEach((header) => {
+                document.getElementById(header.id).classList.remove(...cls);
+               });
+              
+                const direction = directions[index] || "asc";
+                const multiplier = (direction === "asc") ? 1 : -1;
+                const cssSort = (direction === "asc") ? cls[0] : cls[1];
+                document.getElementById(index).classList.add(cssSort);
+              
+                const newRows = Array.from(rows);
+                newRows.sort((rowA, rowB) => {
+                   const cellA = encodeURIComponent(rowA.querySelectorAll("td")[index].textContent.toLowerCase());
+                   const cellB = encodeURIComponent(rowB.querySelectorAll("td")[index].textContent.toLowerCase());
+              
+                   const a = transform(index, cellA);
+                   const b = transform(index, cellB);
+              
+                   switch (true) {
+                    case a > b: return 1 * multiplier;
+                    case a < b: return -1 * multiplier;
+                    case a === b: return 0;
+                     }
+                 });
+              
+                 [].forEach.call(rows, function(row) {
+                     tableBody.removeChild(row);
+                 });
+              
+                 directions[index] = direction === "asc" ? "desc" : "asc";
+                 newRows.forEach(function(newRow) {
+                     tableBody.appendChild(newRow);
+                 });
+               };
+              
+              [].forEach.call(headers, function(header, index) {
+                 header.setAttribute("id", index);
+                 header.addEventListener("click", () => {
+                     sortColumn(index, headers);
+                 });
+              });
+  
+  
+               // HTML-Tabelle filtern
+                  
+               document.querySelectorAll(".filter-table").forEach(function (input) {
+                  var table = document.querySelector(input.dataset.for);
+                  var rows = table.querySelectorAll("tbody tr");
+                  input.addEventListener("input", () => {
+                      rows.forEach(function (tr) {
+                      if (input.value.length > 0) {
+                          if (input.value[0] == input.value[0].toUpperCase()) {
+                          tr.hidden = !tr.textContent.includes(input.value);
+                          } else {
+                          tr.hidden = !tr.textContent.toLowerCase().includes(input.value.toLowerCase());
+                          }
+                      } else {
+                          tr.hidden = !tr.textContent.includes(input.value);
+                      }
+                      });
+                  });
+                  });
+  
+              </script>
+
+
+         </main>
+  
+      <!-- Footer -->
+      <footer>
+        <div class="foot">
+                 <div>
+                     <nav>
+                         
+                             <p>&copy; 2023 CO2 Footprint</p> 
+                             <a href="impressum.html"> Impressum</a> | <a href="datenschutz.html">Datenschutz</a>
+                         
+                     </nav>
+                 </div>    
+        </div>
+       </footer>
+  
+  </body>
+</html>

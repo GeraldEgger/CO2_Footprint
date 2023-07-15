@@ -1,0 +1,81 @@
+
+  .container {
+    display: flex;
+    flex-direction: row;
+  }
+
+  .ueberschrift {
+    width: 60%;
+  }
+  h1 {
+    background-color: green;
+    padding: 1em;
+    border: 5px solid black;
+    }
+
+  .logo {
+    width: 20%;
+    }
+  
+    @media screen and (max-width: 1024px) {
+      .container {
+        flex-direction: column;
+      }
+      h1 {
+        background-color: white;
+        padding: 1em;
+        border: 5px solid black;
+        }
+    }
+  
+  h2 {
+    direction: ltr;
+  }
+
+
+
+.nav {
+    width: 20%;
+    text-align: right;
+    direction: ltr;
+  }
+  
+  .nav a {
+    padding: 10px 20px;
+    text-decoration:underline;
+    color: blue;
+  }
+  
+  body[dir="ltr"] .nav {
+    justify-content: flex-start;
+    text-align: left;
+    direction: ltr;
+  }
+
+.inhalt {
+  background-color: orange;
+    padding: 0,3em;
+    border: 5px solid black;
+}
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+th, td {
+  border: 1px solid black;
+  padding: 8px;
+  text-align: left;
+}
+
+th {
+  background-color: #dddddd;
+}
+
+
+.foot {
+    float: center;
+    text-align: center;
+}
+  
